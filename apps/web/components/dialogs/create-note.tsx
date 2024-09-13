@@ -22,19 +22,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCreateNote } from "@/lib/statera";
+import { useNoteState } from "@/lib/statera";
 import { ENotesDialogType } from "@/types/common";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
-const CreateOrUpdateNote = () => {
+const CreateOrUpdateNote = ({ refetch }: { refetch: () => void }) => {
+  const { data } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const [noteState, setNoteState] = useNoteState();
   const createNote = api.notes.create.useMutation();
+  const updateNote = api.notes.update.useMutation();
   const formSchema = z.object({
     title: z.string().min(2).max(20),
     description: z.string().min(2).max(100),
   });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,20 +47,36 @@ const CreateOrUpdateNote = () => {
       description: "",
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!data?.user) return;
     setIsLoading(true);
-    await createNote.mutateAsync(values);
+    if (noteState.type === ENotesDialogType.CREATE) {
+      await createNote.mutateAsync(values);
+    } else {
+      await updateNote.mutateAsync({ ...values, id: noteState.note?.id });
+    }
     setIsLoading(false);
-    setIsOpen({
+    refetch();
+    setNoteState({
       isOpen: false,
       type: ENotesDialogType.CREATE,
     });
-    toast.success("Note created successfully");
+
+    toast.success(
+      `Note ${noteState.type === ENotesDialogType.CREATE ? "created" : "updated"} successfully`
+    );
   }
-  const [isOpen, setIsOpen] = useCreateNote();
+
+  useEffect(() => {
+    if (noteState.type === ENotesDialogType.UPDATE) {
+      form.setValue("title", noteState.note?.title);
+      form.setValue("description", noteState.note?.description);
+    }
+  }, [noteState.type]);
 
   return (
-    <AlertDialog open={isOpen.isOpen}>
+    <AlertDialog open={noteState.isOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Create new note</AlertDialogTitle>
@@ -103,7 +124,7 @@ const CreateOrUpdateNote = () => {
               <Button
                 disabled={isLoading}
                 onClick={() =>
-                  setIsOpen({
+                  setNoteState({
                     isOpen: false,
                     type: ENotesDialogType.CREATE,
                   })
@@ -114,7 +135,7 @@ const CreateOrUpdateNote = () => {
                 Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create"}
+                {isLoading ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </form>

@@ -1,10 +1,7 @@
-import { ENotesDialogType } from "@/types/common";
+import { ENotesDialogType, TCreateNoteState } from "@/types/common";
 import { statera } from "statera";
 
-export const useCreateNote = statera<{
-  isOpen: boolean;
-  type: ENotesDialogType;
-}>({
+export const useNoteState = statera<TCreateNoteState>({
   isOpen: false,
   type: ENotesDialogType.CREATE,
 });

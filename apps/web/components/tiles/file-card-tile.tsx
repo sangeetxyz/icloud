@@ -39,7 +39,7 @@ const FileCardTile = ({
         <div className="-mt-1 text-sm text-zinc-700">apple-photos</div>
         <div className="uppercase text-xs text-zinc-400">svg</div>
       </div>
-      <TileOptions isHovering={isHovering} />
+      {/* <TileOptions isHovering={isHovering} id={id}  /> */}
     </div>
   );
 };

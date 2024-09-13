@@ -40,3 +40,18 @@ export const handleSignOut = async () => {
 export const getFallbackUserImage = () => {
   return "/head.svg";
 };
+
+export const formatTimeDiff = (date: Date): string => {
+  const now = new Date();
+  const timeDiff = now.getTime() - date.getTime();
+  const oneDayInMs = 24 * 60 * 60 * 1000;
+
+  if (timeDiff < oneDayInMs) {
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  return `${month} ${day}`;
+};

@@ -1,21 +1,29 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import TileOptions from "./tile-options";
-import { cn } from "@/lib/utils";
+import { cn, formatTimeDiff } from "@/lib/utils";
+import { useNoteState } from "@/lib/statera";
+import { ECardOptionType, ENotesDialogType } from "@/types/common";
+import { get } from "http";
 
 const NotesCardTile = ({
-  name,
-  type,
+  id,
+  title,
+  description,
   noBorder,
-  isDrive = false,
+  createdAt,
+  refetch,
 }: {
-  name: string;
-  type: string;
+  id: number;
+  title: string;
+  description: string;
   noBorder: boolean;
-  isDrive?: boolean;
+  createdAt: Date;
+  refetch: () => void;
 }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [noteState, setNoteState] = useNoteState();
   return (
     <div
       onMouseEnter={() => setIsHovering(true)}
@@ -26,14 +34,26 @@ const NotesCardTile = ({
         className={cn("flex flex-col text-black w-full pb-3 pt-4", {
           "border-b": !noBorder,
         })}
+        onClick={() =>
+          setNoteState({
+            isOpen: true,
+            type: ENotesDialogType.UPDATE,
+            note: { title, description, id },
+          })
+        }
       >
-        <div className="-mt-1 text-sm text-zinc-700">apple-photos</div>
+        <div className="-mt-1 text-sm text-zinc-700">{title}</div>
         <div className="flex items-center space-x-2 font-sf-light pt-0.5">
-          <div className="uppercase text-xs">2:55</div>
-          <div className="text-xs text-zinc-400 ">Additionalk ingop</div>
+          <div className="text-xs">{formatTimeDiff(createdAt)}</div>
+          <div className="text-xs text-zinc-400 font">{description}</div>
         </div>
       </div>
-      <TileOptions isHovering={isHovering} />
+      <TileOptions
+        refetch={refetch}
+        isHovering={isHovering}
+        id={id}
+        type={ECardOptionType.NOTES}
+      />
     </div>
   );
 };

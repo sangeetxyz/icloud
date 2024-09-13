@@ -47,7 +47,7 @@ export const notesRouter = createTRPCRouter({
           title: input.title,
           description: input.description,
         })
-        .where(sql`${ctx.session.user.id} = ${notes.createdById}`);
+        .where(sql`${input.id} = ${notes.id}`);
     }),
 
   delete: protectedProcedure
@@ -57,9 +57,7 @@ export const notesRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .delete(notes)
-        .where(sql`${ctx.session.user.id} = ${notes.createdById}`);
+      await ctx.db.delete(notes).where(sql`${input.id} = ${notes.id}`);
     }),
 
   getLatest: publicProcedure.query(async ({ ctx }) => {
@@ -73,6 +71,7 @@ export const notesRouter = createTRPCRouter({
   getNotesByUser: protectedProcedure.query(async ({ ctx }) => {
     const notesByUser = await ctx.db.query.notes.findMany({
       where: eq(notes.createdById, ctx.session.user.id),
+      orderBy: (notes, { desc }) => [desc(notes.createdAt)],
     });
 
     return notesByUser;

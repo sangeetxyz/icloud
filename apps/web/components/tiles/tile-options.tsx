@@ -8,8 +8,29 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { ECardOptionType } from "@/types/common";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
 
-const TileOptions = ({ isHovering }: { isHovering: boolean }) => {
+const TileOptions = ({
+  isHovering,
+  id,
+  type,
+  refetch,
+}: {
+  isHovering: boolean;
+  id: number;
+  type: ECardOptionType;
+  refetch: () => void;
+}) => {
+  const deleteNote = api.notes.delete.useMutation();
+
+  const handleDelete = async () => {
+    await deleteNote.mutateAsync({ id });
+    refetch();
+    toast.success("Note deleted successfully");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -20,7 +41,10 @@ const TileOptions = ({ isHovering }: { isHovering: boolean }) => {
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl mr-2">
-        <DropdownMenuItem className="flex cursor-pointer items-center text-red-500 space-x-2 w-32">
+        <DropdownMenuItem
+          onClick={handleDelete}
+          className="flex cursor-pointer items-center text-red-500 space-x-2 w-32"
+        >
           <RiDeleteBin6Line />
           <div>Delete File</div>
         </DropdownMenuItem>
