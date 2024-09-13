@@ -6,8 +6,11 @@ import { ScrollArea } from "../ui/scroll-area";
 import FileCardTile from "../tiles/file-card-tile";
 import CardOptions from "./card-options";
 import { ECardOptionType } from "@/types/common";
+import { useCreateDrive } from "@/lib/statera";
+import CreateDrive from "../dialogs/create-drive";
 
 const DriveCard = () => {
+  const [, setIsOpen] = useCreateDrive();
   const data = [
     {
       id: 0,
@@ -38,7 +41,10 @@ const DriveCard = () => {
   return (
     <div className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden">
       <div className="bg-sky-100 p-2">
-        <div className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3">
+        <div
+          onClick={() => setIsOpen(true)}
+          className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3"
+        >
           <Image
             src={"/drive.png"}
             height={200}
@@ -66,6 +72,7 @@ const DriveCard = () => {
         ))}
       </ScrollArea>
       <CardOptions cardType={ECardOptionType.DRIVE} />
+      <CreateDrive />
     </div>
   );
 };

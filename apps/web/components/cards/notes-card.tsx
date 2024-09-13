@@ -5,10 +5,13 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { PiNotePencilBold } from "react-icons/pi";
 import { ScrollArea } from "../ui/scroll-area";
 import CardOptions from "./card-options";
-import { ECardOptionType } from "@/types/common";
+import { ECardOptionType, ENotesDialogType } from "@/types/common";
 import NotesCardTile from "../tiles/notes-card-tile";
+import { useCreateNote } from "@/lib/statera";
+import CreateOrUpdateNote from "../dialogs/create-note";
 
 const NotesCard = () => {
+  const [, setIsOpen] = useCreateNote();
   const data = [
     {
       id: 0,
@@ -39,7 +42,15 @@ const NotesCard = () => {
   return (
     <div className="w-80 relative font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden">
       <div className="bg-sky-100 p-2 flex ">
-        <div className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3">
+        <div
+          onClick={() =>
+            setIsOpen({
+              isOpen: true,
+              type: ENotesDialogType.CREATE,
+            })
+          }
+          className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3"
+        >
           <Image
             src={"/apple-notes.svg"}
             height={200}
@@ -56,7 +67,15 @@ const NotesCard = () => {
           </div>
         </div>
         <div className="pl-2.5 pb-2.5">
-          <div className="hover:bg-black/10 p-2 cursor-pointer w-fit rounded-lg">
+          <div
+            onClick={() =>
+              setIsOpen({
+                isOpen: true,
+                type: ENotesDialogType.CREATE,
+              })
+            }
+            className="hover:bg-black/10 p-2 cursor-pointer w-fit rounded-lg"
+          >
             <PiNotePencilBold size={22} className="text-yellow-500" />
           </div>
         </div>
@@ -72,6 +91,7 @@ const NotesCard = () => {
         ))}
       </ScrollArea>
       <CardOptions cardType={ECardOptionType.NOTES} />
+      <CreateOrUpdateNote />
     </div>
   );
 };

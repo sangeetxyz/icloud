@@ -3,3 +3,8 @@ export enum ECardOptionType {
   DRIVE,
   NOTES,
 }
+
+export enum ENotesDialogType {
+  CREATE,
+  UPDATE,
+}

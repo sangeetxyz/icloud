@@ -6,8 +6,12 @@ import { ScrollArea } from "../ui/scroll-area";
 import CardOptions from "./card-options";
 import { ECardOptionType } from "@/types/common";
 import FileCardTile from "../tiles/file-card-tile";
+import { useCreatePhotos } from "@/lib/statera";
+import CreatePhotos from "../dialogs/create-photos";
 
 const PhotosCard = () => {
+  const [, setIsOpen] = useCreatePhotos();
+
   const data = [
     {
       id: 0,
@@ -39,7 +43,10 @@ const PhotosCard = () => {
   return (
     <div className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden">
       <div className="bg-sky-100 p-2">
-        <div className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3">
+        <div
+          onClick={() => setIsOpen(true)}
+          className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3"
+        >
           <Image
             src={"/apple-photos.svg"}
             height={200}
@@ -69,6 +76,7 @@ const PhotosCard = () => {
         ))}
       </ScrollArea>
       <CardOptions cardType={ECardOptionType.PHOTOS} />
+      <CreatePhotos />
     </div>
   );
 };
