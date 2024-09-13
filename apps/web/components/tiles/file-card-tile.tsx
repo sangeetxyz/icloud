@@ -5,21 +5,38 @@ import { useState } from "react";
 import { FaFileAlt } from "react-icons/fa";
 import { IoImage } from "react-icons/io5";
 import TileOptions from "./tile-options";
+import { ECardOptionType } from "@/types/common";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 interface IFileCardTileProps {
   name: string;
   type: string;
   noBorder: boolean;
   isDrive?: boolean;
+  refetch: () => void;
+  id: number;
+  link: string;
 }
 
 const FileCardTile = ({
+  id,
   name,
   type,
   noBorder,
   isDrive = false,
+  refetch,
+  link,
 }: IFileCardTileProps) => {
   const [isHovering, setIsHovering] = useState(false);
+  const router = useRouter();
   return (
     <div
       onMouseEnter={() => setIsHovering(true)}
@@ -32,14 +49,23 @@ const FileCardTile = ({
         <IoImage className="text-sky-500 h-5 w-5 mb-3 mt-4" />
       )}
       <div
+        onClick={() => router.replace(link)}
         className={cn("flex flex-col text-black w-full pb-3 pt-4", {
           "border-b": !noBorder,
         })}
       >
-        <div className="-mt-1 text-sm text-zinc-700">apple-photos</div>
-        <div className="uppercase text-xs text-zinc-400">svg</div>
+        <div className="-mt-1 text-sm text-zinc-700 whitespace-nowrap truncate w-52">
+          {name}
+        </div>
+        <div className="uppercase text-xs text-zinc-400">{type}</div>
       </div>
-      {/* <TileOptions isHovering={isHovering} id={id}  /> */}
+      <TileOptions
+        isHovering={isHovering}
+        id={id}
+        refetch={refetch}
+        type={ECardOptionType.DRIVE}
+        link={link}
+      />
     </div>
   );
 };

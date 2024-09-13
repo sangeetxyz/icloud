@@ -42,10 +42,14 @@ const NotesCardTile = ({
           })
         }
       >
-        <div className="-mt-1 text-sm text-zinc-700">{title}</div>
+        <div className="-mt-1 text-sm text-zinc-700 whitespace-nowrap truncate w-52">
+          {title}
+        </div>
         <div className="flex items-center space-x-2 font-sf-light pt-0.5">
           <div className="text-xs">{formatTimeDiff(createdAt)}</div>
-          <div className="text-xs text-zinc-400 font">{description}</div>
+          <div className="text-xs text-zinc-400 font whitespace-nowrap truncate w-44">
+            {description}
+          </div>
         </div>
       </div>
       <TileOptions

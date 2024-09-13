@@ -7,6 +7,9 @@ import { TRPCReactProvider } from "@/trpc/react";
 import SessionProvider from "@/components/core/session-provider";
 import { getServerSession } from "next-auth";
 import { Toaster } from "@/components/ui/sonner";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const sfProTextBold = localFont({
   src: "../public/fonts/SF-Pro-Text-Bold.otf",
@@ -56,6 +59,15 @@ export default async function RootLayout({
         >
           <TRPCReactProvider>
             <SessionProvider session={session}>
+              <NextSSRPlugin
+                /**
+                 * The `extractRouterConfig` will extract **only** the route configs
+                 * from the router to prevent additional information from being
+                 * leaked to the client. The data passed to the client is the same
+                 * as if you were to fetch `/api/uploadthing` directly.
+                 */
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
               {children}
               <Toaster />
             </SessionProvider>

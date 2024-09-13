@@ -11,6 +11,7 @@ import { useNoteState } from "@/lib/statera";
 import CreateOrUpdateNote from "../dialogs/create-note";
 import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
+import { HiMiniPlusCircle } from "react-icons/hi2";
 
 const NotesCard = () => {
   const [, setIsOpen] = useNoteState();
@@ -67,12 +68,23 @@ const NotesCard = () => {
           ))}
         </div>
       )}
-      {!data && !isLoading && (
-        <div className="h-full flex items-center justify-center bg-white">
-          no data
+      {!!data && data.length < 1 && (
+        <div
+          onClick={() =>
+            setIsOpen({
+              isOpen: true,
+              type: ENotesDialogType.CREATE,
+            })
+          }
+          className="h-full cursor-pointer pt-10 text-yellow-400 flex flex-col space-y-2 items-center justify-center bg-white"
+        >
+          <HiMiniPlusCircle size={50} />
+          <div className="text-sm text-black font-sf-regular">
+            Create your first note
+          </div>
         </div>
       )}
-      {!!data && (
+      {!!data && data.length > 0 && (
         <ScrollArea className="h-full flex bg-white flex-col px-3 pt-3">
           {data.map((photo, index) => (
             <NotesCardTile

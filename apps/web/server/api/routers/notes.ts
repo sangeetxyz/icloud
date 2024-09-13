@@ -5,7 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { posts, notes } from "@/server/db/schema";
+import { notes } from "@/server/db/schema";
 import { eq, sql } from "drizzle-orm";
 
 export const notesRouter = createTRPCRouter({

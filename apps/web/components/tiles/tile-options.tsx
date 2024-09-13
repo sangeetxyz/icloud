@@ -11,22 +11,35 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { ECardOptionType } from "@/types/common";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
+import Link from "next/link";
+import { MdDownload } from "react-icons/md";
+
+interface ITileOptionsProps {
+  isHovering: boolean;
+  id: number;
+  type: ECardOptionType;
+  refetch: () => void;
+  link?: string;
+}
 
 const TileOptions = ({
   isHovering,
   id,
   type,
   refetch,
-}: {
-  isHovering: boolean;
-  id: number;
-  type: ECardOptionType;
-  refetch: () => void;
-}) => {
+  link,
+}: ITileOptionsProps) => {
   const deleteNote = api.notes.delete.useMutation();
-
+  const deleteDrive = api.drives.delete.useMutation();
   const handleDelete = async () => {
-    await deleteNote.mutateAsync({ id });
+    switch (type) {
+      case ECardOptionType.NOTES:
+        await deleteNote.mutateAsync({ id });
+        break;
+      case ECardOptionType.DRIVE:
+        await deleteDrive.mutateAsync({ id });
+        break;
+    }
     refetch();
     toast.success("Note deleted successfully");
   };
@@ -48,6 +61,14 @@ const TileOptions = ({
           <RiDeleteBin6Line />
           <div>Delete File</div>
         </DropdownMenuItem>
+        {type !== ECardOptionType.NOTES && !!link && (
+          <Link href={link} target="_blank">
+            <DropdownMenuItem className="flex cursor-pointer items-center text-blue-500 space-x-2 w-32">
+              <MdDownload />
+              <div>Download File</div>
+            </DropdownMenuItem>
+          </Link>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

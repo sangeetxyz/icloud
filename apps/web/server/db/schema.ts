@@ -151,3 +151,26 @@ export const notes = createTable(
     titleIndex: index("title_idx").on(example.title),
   })
 );
+
+export const drives = createTable(
+  "drive",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("title", { length: 256 }).notNull(),
+    link: varchar("link", { length: 256 }).notNull(),
+    type: varchar("type", { length: 256 }).notNull(),
+    size: integer("size").notNull(),
+    createdById: varchar("created_by", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+      () => new Date()
+    ),
+  },
+  (example) => ({
+    createdByIdIdx: index("drives_created_by_idx").on(example.createdById),
+  })
+);
