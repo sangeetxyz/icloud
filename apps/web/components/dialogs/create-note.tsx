@@ -8,7 +8,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { z } from "zod";
+import { set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -24,8 +24,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCreateNote } from "@/lib/statera";
 import { ENotesDialogType } from "@/types/common";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const CreateOrUpdateNote = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const createNote = api.notes.create.useMutation();
   const formSchema = z.object({
     title: z.string().min(2).max(20),
     description: z.string().min(2).max(100),
@@ -37,8 +42,15 @@ const CreateOrUpdateNote = () => {
       description: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+    await createNote.mutateAsync(values);
+    setIsLoading(false);
+    setIsOpen({
+      isOpen: false,
+      type: ENotesDialogType.CREATE,
+    });
+    toast.success("Note created successfully");
   }
   const [isOpen, setIsOpen] = useCreateNote();
 
@@ -89,6 +101,7 @@ const CreateOrUpdateNote = () => {
             />
             <div className="flex justify-end space-x-2">
               <Button
+                disabled={isLoading}
                 onClick={() =>
                   setIsOpen({
                     isOpen: false,
@@ -100,7 +113,9 @@ const CreateOrUpdateNote = () => {
               >
                 Cancel
               </Button>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Creating..." : "Create"}
+              </Button>
             </div>
           </form>
         </Form>

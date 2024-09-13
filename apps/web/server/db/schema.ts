@@ -56,6 +56,7 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  notes: many(notes),
 }));
 
 export const accounts = createTable(
@@ -126,5 +127,27 @@ export const verificationTokens = createTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
+  })
+);
+
+export const notes = createTable(
+  "note",
+  {
+    id: serial("id").primaryKey(),
+    title: varchar("title", { length: 256 }).notNull(),
+    description: varchar("description", { length: 256 }).notNull(),
+    createdById: varchar("created_by", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+      () => new Date()
+    ),
+  },
+  (example) => ({
+    createdByIdIdx: index("notes_created_by_idx").on(example.createdById),
+    titleIndex: index("title_idx").on(example.title),
   })
 );

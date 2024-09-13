@@ -13,6 +13,15 @@ CREATE TABLE IF NOT EXISTS "drizz_account" (
 	CONSTRAINT "drizz_account_provider_provider_account_id_pk" PRIMARY KEY("provider","provider_account_id")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "drizz_note" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar(256) NOT NULL,
+	"description" varchar(256) NOT NULL,
+	"created_by" varchar(255) NOT NULL,
+	"created_at" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp with time zone
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "drizz_post" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(256),
@@ -44,6 +53,12 @@ CREATE TABLE IF NOT EXISTS "drizz_verification_token" (
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "drizz_account" ADD CONSTRAINT "drizz_account_user_id_drizz_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."drizz_user"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "drizz_note" ADD CONSTRAINT "drizz_note_created_by_drizz_user_id_fk" FOREIGN KEY ("created_by") REFERENCES "public"."drizz_user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
