@@ -2,14 +2,26 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/core/theme-provider";
+import { cn } from "@/lib/utils";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const sfProTextBold = localFont({
+  src: "../public/fonts/SF-Pro-Text-Bold.otf",
+  variable: "--font-sf-pro-text-bold",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+
+const sfProTextRegular = localFont({
+  src: "../public/fonts/SF-Pro-Text-Regular.otf",
+  variable: "--font-sf-pro-text-regular",
+});
+
+const sfProTextLight = localFont({
+  src: "../public/fonts/SF-Pro-Text-Light.otf",
+  variable: "--font-sf-pro-text-light",
+});
+
+const sfProTextMedium = localFont({
+  src: "../public/fonts/SF-Pro-Text-Medium.otf",
+  variable: "--font-sf-pro-text-medium",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +36,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={cn(
+          sfProTextBold.variable,
+          sfProTextRegular.variable,
+          sfProTextLight.variable,
+          sfProTextMedium.variable
+        )}
+      >
         <ThemeProvider
           attribute="class"
           forcedTheme="light"
