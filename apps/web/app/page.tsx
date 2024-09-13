@@ -22,7 +22,7 @@ export default function Home() {
         <CardContent>
           <div className="flex flex-col space-y-4">
             <Link href={"/auth"}>
-              <Button>Authenticate</Button>
+              <Button>Dashboard</Button>
             </Link>
           </div>
         </CardContent>
