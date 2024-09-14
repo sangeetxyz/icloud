@@ -11,13 +11,24 @@ import CreatePhotos from "../dialogs/create-photos";
 import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
 import { MdOutlineInsertPhoto } from "react-icons/md";
+import { motion } from "framer-motion";
 
 const PhotosCard = () => {
   const [, setIsOpen] = useCreatePhotos();
   const { data, isLoading, refetch } = api.photos.getPhotosByUser.useQuery();
 
   return (
-    <div className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden">
+    <motion.div
+      whileHover={{
+        scale: 1.025,
+        boxShadow: "7px 7px 20px 8px rgba(0,0,0,0.1)",
+      }}
+      transition={{
+        ease: "linear",
+        duration: 0.2,
+      }}
+      className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden"
+    >
       <div className="bg-sky-100 p-2">
         <div
           onClick={() => setIsOpen(true)}
@@ -76,7 +87,7 @@ const PhotosCard = () => {
       )}
       <CardOptions cardType={ECardOptionType.PHOTOS} />
       <CreatePhotos refetch={refetch} />
-    </div>
+    </motion.div>
   );
 };
 

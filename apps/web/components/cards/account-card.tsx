@@ -3,13 +3,24 @@
 import { cn, getFallbackUserImage } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const AccountCard = () => {
   const { data, status } = useSession();
   if (status === "unauthenticated" || !data) return;
 
   return (
-    <div className="w-80 font-sf-regular h-80 relative bg-gradient-to-tr from-sky-300 to-white rounded-2xl">
+    <motion.div
+      whileHover={{
+        scale: 1.025,
+        boxShadow: "7px 7px 20px 8px rgba(0,0,0,0.1)",
+      }}
+      transition={{
+        ease: "linear",
+        duration: 0.2,
+      }}
+      className="w-80 font-sf-regular h-80 relative bg-gradient-to-tr from-sky-300 to-white rounded-2xl"
+    >
       <Image
         src={"/images/account.svg"}
         height={500}
@@ -37,7 +48,7 @@ const AccountCard = () => {
           <div className="text-xl font-semibold pt-3">iCloud</div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

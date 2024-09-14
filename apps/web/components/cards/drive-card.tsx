@@ -11,13 +11,24 @@ import CreateDrive from "../dialogs/create-drive";
 import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
 import { IoCloudUploadSharp } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const DriveCard = () => {
   const [, setIsOpen] = useCreateDrive();
   const { data, isLoading, refetch } = api.drives.getDrivesByUser.useQuery();
 
   return (
-    <div className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden">
+    <motion.div
+      whileHover={{
+        scale: 1.025,
+        boxShadow: "7px 7px 20px 8px rgba(0,0,0,0.1)",
+      }}
+      transition={{
+        ease: "linear",
+        duration: 0.2,
+      }}
+      className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden"
+    >
       <div className="bg-sky-100 p-2">
         <div
           onClick={() => setIsOpen(true)}
@@ -75,7 +86,7 @@ const DriveCard = () => {
       )}
       <CardOptions cardType={ECardOptionType.DRIVE} />
       <CreateDrive refetch={refetch} />
-    </div>
+    </motion.div>
   );
 };
 
