@@ -19,7 +19,7 @@ const AccountCard = () => {
         ease: "linear",
         duration: 0.2,
       }}
-      className="w-80 font-sf-regular h-80 relative bg-gradient-to-tr from-sky-300 to-white rounded-2xl"
+      className="w-80 select-none font-sf-regular h-80 relative bg-gradient-to-tr from-sky-300 to-white rounded-2xl"
     >
       <Image
         src={"/images/account.svg"}

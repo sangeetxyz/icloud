@@ -45,7 +45,7 @@ const NotesCard = () => {
             height={200}
             width={200}
             alt=""
-            className="h-12 w-12"
+            className="h-12 w-12 select-none"
           />
           <div className="flex flex-col text-black">
             <div className="font-bold text-lg font-sf-light">Notes</div>

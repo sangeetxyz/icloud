@@ -18,18 +18,13 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url()
     ),
-    // DISCORD_CLIENT_ID: z.string(),
-    // DISCORD_CLIENT_SECRET: z.string(),
     GITHUB_ID: z.string(),
     GITHUB_SECRET_ID: z.string(),
-
     PASSKEYS_API_KEY: z.string(),
-
     API_KEY_SECRET: z.string(),
   },
 
   client: {
-    NEXT_PUBLIC_BASE_URL: z.string().url(),
     NEXT_PUBLIC_PASSKEYS_TENANT_ID: z.string(),
   },
 
@@ -39,16 +34,10 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-    // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET_ID: process.env.GITHUB_SECRET_ID,
-
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-
     PASSKEYS_API_KEY: process.env.PASSKEYS_API_KEY,
     NEXT_PUBLIC_PASSKEYS_TENANT_ID: process.env.NEXT_PUBLIC_PASSKEYS_TENANT_ID,
-
     API_KEY_SECRET: process.env.API_KEY_SECRET,
   },
   /**
