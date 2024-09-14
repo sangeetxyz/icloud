@@ -66,14 +66,14 @@ export const authOptions: NextAuthOptions = {
   }) as Adapter,
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET_ID!,
+      clientId: env.GITHUB_ID,
+      clientSecret: env.GITHUB_SECRET_ID,
       allowDangerousEmailAccountLinking: true,
     }),
     PasskeyProvider({
       tenant: tenant({
-        apiKey: process.env.PASSKEYS_API_KEY!,
-        tenantId: process.env.NEXT_PUBLIC_PASSKEYS_TENANT_ID!,
+        apiKey: env.PASSKEYS_API_KEY,
+        tenantId: env.NEXT_PUBLIC_PASSKEYS_TENANT_ID,
       }),
       async authorize({ userId }) {
         const user = await db.query.users.findFirst({

@@ -4,10 +4,11 @@ import { getServerSession } from "next-auth";
 import { tenant } from "@teamhanko/passkeys-next-auth-provider";
 import { authOptions } from "./auth";
 import { db } from "./db";
+import { env } from "@/env";
 
 const passkeyApi = tenant({
-  apiKey: process.env.PASSKEYS_API_KEY!,
-  tenantId: process.env.NEXT_PUBLIC_PASSKEYS_TENANT_ID!,
+  apiKey: env.PASSKEYS_API_KEY,
+  tenantId: env.NEXT_PUBLIC_PASSKEYS_TENANT_ID,
 });
 
 export async function startServerPasskeyRegistration() {
