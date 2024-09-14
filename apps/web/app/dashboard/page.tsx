@@ -16,7 +16,7 @@ export default async function Home() {
     <div className="min-h-screen relative flex flex-col">
       <Image
         priority
-        src={"/blue1.jpg"}
+        src={"/blue-bg.png"}
         height={2000}
         width={2000}
         quality={100}
