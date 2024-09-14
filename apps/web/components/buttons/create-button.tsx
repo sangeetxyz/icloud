@@ -9,8 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Image from "next/image";
+import { useCreateDrive, useCreatePhotos, useNoteState } from "@/lib/statera";
+import { ENotesDialogType } from "@/types/common";
 
 const CreateButton = () => {
+  const [, setIsDriveOpen] = useCreateDrive();
+  const [, setIsPhotosOpen] = useCreatePhotos();
+  const [, setIsNotesOpen] = useNoteState();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none">
@@ -20,9 +25,12 @@ const CreateButton = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl font-sf-regular w-44 mr-2">
         <DropdownMenuLabel>Create New</DropdownMenuLabel>
-        <DropdownMenuItem className="flex items-center cursor-pointer space-x-2">
+        <DropdownMenuItem
+          onClick={() => setIsPhotosOpen(true)}
+          className="flex items-center cursor-pointer space-x-2"
+        >
           <Image
-            src={"/apple-photos.svg"}
+            src={"/images/apple-photos.svg"}
             height={200}
             width={200}
             alt=""
@@ -30,7 +38,10 @@ const CreateButton = () => {
           />
           <div>Photos</div>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center cursor-pointer space-x-2">
+        <DropdownMenuItem
+          onClick={() => setIsDriveOpen(true)}
+          className="flex items-center cursor-pointer space-x-2"
+        >
           <Image
             src={"/drive.png"}
             height={200}
@@ -40,9 +51,17 @@ const CreateButton = () => {
           />
           <div>Drive</div>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center cursor-pointer space-x-2">
+        <DropdownMenuItem
+          onClick={() =>
+            setIsNotesOpen({
+              isOpen: true,
+              type: ENotesDialogType.CREATE,
+            })
+          }
+          className="flex items-center cursor-pointer space-x-2"
+        >
           <Image
-            src={"/apple-notes.svg"}
+            src={"/images/apple-notes.svg"}
             height={200}
             width={200}
             alt=""

@@ -58,6 +58,7 @@ const CreateOrUpdateNote = ({ refetch }: { refetch: () => void }) => {
     }
     setIsLoading(false);
     refetch();
+    form.reset();
     setNoteState({
       isOpen: false,
       type: ENotesDialogType.CREATE,
