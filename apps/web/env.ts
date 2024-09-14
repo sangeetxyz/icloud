@@ -24,6 +24,8 @@ export const env = createEnv({
     GITHUB_SECRET_ID: z.string(),
 
     PASSKEYS_API_KEY: z.string(),
+
+    API_KEY_SECRET: z.string(),
   },
 
   client: {
@@ -46,6 +48,8 @@ export const env = createEnv({
 
     PASSKEYS_API_KEY: process.env.PASSKEYS_API_KEY,
     NEXT_PUBLIC_PASSKEYS_TENANT_ID: process.env.NEXT_PUBLIC_PASSKEYS_TENANT_ID,
+
+    API_KEY_SECRET: process.env.API_KEY_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
