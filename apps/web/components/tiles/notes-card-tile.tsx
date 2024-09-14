@@ -3,7 +3,7 @@
 import { useState } from "react";
 import TileOptions from "./tile-options";
 import { cn, formatTimeDiff } from "@/lib/utils";
-import { useNoteState } from "@/lib/statera";
+import { useNoteState } from "@/hooks/statera";
 import { ECardOptionType, ENotesDialogType } from "@/types/common";
 
 interface INotesCardTileProps {

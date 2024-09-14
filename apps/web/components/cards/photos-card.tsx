@@ -6,28 +6,37 @@ import { ScrollArea } from "../ui/scroll-area";
 import CardOptions from "./card-options";
 import { ECardOptionType } from "@/types/common";
 import FileCardTile from "../tiles/file-card-tile";
-import { useCreatePhotos } from "@/lib/statera";
+import { useCreatePhotos } from "@/hooks/statera";
 import CreatePhotos from "../dialogs/create-photos";
 import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
 import { MdOutlineInsertPhoto } from "react-icons/md";
 import { motion } from "framer-motion";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const PhotosCard = () => {
+  const MIN_WIDTH = 1024;
+  const { width } = useWindowSize();
   const [, setIsOpen] = useCreatePhotos();
   const { data, isLoading, refetch } = api.photos.getPhotosByUser.useQuery();
 
   return (
     <motion.div
+      initial={{
+        width: width < MIN_WIDTH ? "20rem" : "40rem",
+      }}
       whileHover={{
         scale: 1.025,
         boxShadow: "7px 7px 20px 8px rgba(0,0,0,0.1)",
+      }}
+      animate={{
+        width: width < MIN_WIDTH ? "20rem" : "40rem",
       }}
       transition={{
         ease: "linear",
         duration: 0.2,
       }}
-      className="w-80 relative lg:w-[40rem] font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden"
+      className="relative font-sf-regular h-80 flex flex-col rounded-2xl overflow-hidden"
     >
       <div className="bg-sky-100 p-2">
         <div

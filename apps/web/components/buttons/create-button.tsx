@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Image from "next/image";
-import { useCreateDrive, useCreatePhotos, useNoteState } from "@/lib/statera";
+import { useCreateDrive, useCreatePhotos, useNoteState } from "@/hooks/statera";
 import { ENotesDialogType } from "@/types/common";
 
 const CreateButton = () => {

@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useNoteState } from "@/lib/statera";
+import { useNoteState } from "@/hooks/statera";
 import { ENotesDialogType } from "@/types/common";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";

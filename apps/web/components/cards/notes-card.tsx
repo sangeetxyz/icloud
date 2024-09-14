@@ -7,7 +7,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import CardOptions from "./card-options";
 import { ECardOptionType, ENotesDialogType } from "@/types/common";
 import NotesCardTile from "../tiles/notes-card-tile";
-import { useNoteState } from "@/lib/statera";
+import { useNoteState } from "@/hooks/statera";
 import CreateOrUpdateNote from "../dialogs/create-note";
 import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
