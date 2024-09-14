@@ -62,7 +62,7 @@ const FileCardTile = ({
         isHovering={isHovering}
         id={id}
         refetch={refetch}
-        type={ECardOptionType.DRIVE}
+        type={isDrive ? ECardOptionType.DRIVE : ECardOptionType.PHOTOS}
         link={link}
       />
     </div>

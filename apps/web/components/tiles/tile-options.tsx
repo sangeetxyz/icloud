@@ -31,6 +31,7 @@ const TileOptions = ({
 }: ITileOptionsProps) => {
   const deleteNote = api.notes.delete.useMutation();
   const deleteDrive = api.drives.delete.useMutation();
+  const deletePhoto = api.photos.delete.useMutation();
   const handleDelete = async () => {
     switch (type) {
       case ECardOptionType.NOTES:
@@ -39,9 +40,14 @@ const TileOptions = ({
       case ECardOptionType.DRIVE:
         await deleteDrive.mutateAsync({ id });
         break;
+      case ECardOptionType.PHOTOS:
+        await deletePhoto.mutateAsync({ id });
+        break;
     }
     refetch();
-    toast.success("Note deleted successfully");
+    toast.success(
+      `${type === ECardOptionType.DRIVE ? "File" : type === ECardOptionType.PHOTOS ? "Photo" : "Note"} deleted successfully`
+    );
   };
 
   return (

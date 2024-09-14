@@ -8,6 +8,13 @@
       "when": 1726266644830,
       "tag": "0000_living_peter_quill",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1726275762920,
+      "tag": "0001_lucky_lord_hawal",
+      "breakpoints": true
     }
   ]
 }

@@ -26,7 +26,7 @@ const CreateDrive = ({ refetch }: { refetch: () => void }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <UploadDropzone
-          endpoint="imageUploader"
+          endpoint="fileUploader"
           onClientUploadComplete={(res) => {
             refetch();
             setIsOpen(false);
