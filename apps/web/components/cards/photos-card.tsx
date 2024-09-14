@@ -24,7 +24,7 @@ const PhotosCard = () => {
           className="flex w-full cursor-pointer rounded-lg p-2 hover:bg-black/10 space-x-3"
         >
           <Image
-            src={"/apple-photos.svg"}
+            src={"/images/apple-photos.svg"}
             height={200}
             width={200}
             alt=""

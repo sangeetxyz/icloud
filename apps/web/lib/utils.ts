@@ -38,7 +38,7 @@ export const handleSignOut = async () => {
 };
 
 export const getFallbackUserImage = () => {
-  return "/head.svg";
+  return "/images/head.svg";
 };
 
 export const formatTimeDiff = (date: Date): string => {

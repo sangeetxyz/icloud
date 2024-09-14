@@ -11,7 +11,7 @@ const AccountCard = () => {
   return (
     <div className="w-80 font-sf-regular h-80 relative bg-gradient-to-tr from-sky-300 to-white rounded-2xl">
       <Image
-        src={"/account.svg"}
+        src={"/images/account.svg"}
         height={500}
         width={500}
         alt=""
