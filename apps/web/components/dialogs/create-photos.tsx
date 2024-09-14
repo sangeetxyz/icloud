@@ -8,7 +8,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useCreateDrive, useCreatePhotos } from "@/lib/statera";
+import { useCreatePhotos } from "@/lib/statera";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { toast } from "sonner";
 

@@ -5,7 +5,15 @@ import TileOptions from "./tile-options";
 import { cn, formatTimeDiff } from "@/lib/utils";
 import { useNoteState } from "@/lib/statera";
 import { ECardOptionType, ENotesDialogType } from "@/types/common";
-import { get } from "http";
+
+interface INotesCardTileProps {
+  id: number;
+  title: string;
+  description: string;
+  noBorder: boolean;
+  createdAt: Date;
+  refetch: () => void;
+}
 
 const NotesCardTile = ({
   id,
@@ -14,14 +22,7 @@ const NotesCardTile = ({
   noBorder,
   createdAt,
   refetch,
-}: {
-  id: number;
-  title: string;
-  description: string;
-  noBorder: boolean;
-  createdAt: Date;
-  refetch: () => void;
-}) => {
+}: INotesCardTileProps) => {
   const [isHovering, setIsHovering] = useState(false);
   const [noteState, setNoteState] = useNoteState();
   return (

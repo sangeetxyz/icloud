@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { IoCloudUploadSharp, IoImage } from "react-icons/io5";
+import { IoImage } from "react-icons/io5";
 import { ScrollArea } from "../ui/scroll-area";
 import CardOptions from "./card-options";
 import { ECardOptionType } from "@/types/common";

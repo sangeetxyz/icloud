@@ -9,14 +9,6 @@ import { notes } from "@/server/db/schema";
 import { eq, sql } from "drizzle-orm";
 
 export const notesRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   create: protectedProcedure
     .input(
       z.object({
@@ -59,14 +51,6 @@ export const notesRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       await ctx.db.delete(notes).where(sql`${input.id} = ${notes.id}`);
     }),
-
-  getLatest: publicProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.query.posts.findFirst({
-      orderBy: (posts, { desc }) => [desc(posts.createdAt)],
-    });
-
-    return post ?? null;
-  }),
 
   getNotesByUser: protectedProcedure.query(async ({ ctx }) => {
     const notesByUser = await ctx.db.query.notes.findMany({

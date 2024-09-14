@@ -3,13 +3,14 @@
 import { GoPasskeyFill } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 import { signInWithPasskey } from "@teamhanko/passkeys-next-auth-provider/client";
+import { env } from "@/env";
 
 const SignInWithPasskey = () => {
   return (
     <Button
       onClick={() =>
         signInWithPasskey({
-          tenantId: process.env.NEXT_PUBLIC_PASSKEYS_TENANT_ID!,
+          tenantId: env.NEXT_PUBLIC_PASSKEYS_TENANT_ID,
           callbackUrl: `${window.location.origin}/dashboard`,
         })
       }
