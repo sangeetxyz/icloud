@@ -6,15 +6,6 @@ import { FaFileAlt } from "react-icons/fa";
 import { IoImage } from "react-icons/io5";
 import TileOptions from "./tile-options";
 import { ECardOptionType } from "@/types/common";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
 
 interface IFileCardTileProps {
   name: string;
@@ -36,7 +27,15 @@ const FileCardTile = ({
   link,
 }: IFileCardTileProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const router = useRouter();
+  const handleDownload = () => {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = link;
+    downloadLink.setAttribute("download", "file"); // Optional: Set the downloaded file name
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+  };
+
   return (
     <div
       onMouseEnter={() => setIsHovering(true)}
@@ -49,7 +48,7 @@ const FileCardTile = ({
         <IoImage className="text-sky-500 h-5 w-5 mb-3 mt-4" />
       )}
       <div
-        onClick={() => router.replace(link)}
+        onClick={handleDownload}
         className={cn("flex flex-col text-black w-full pb-3 pt-4", {
           "border-b": !noBorder,
         })}
