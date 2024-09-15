@@ -1,24 +1,17 @@
-# Turborepo starter
+# iCloud Clone Project
 
-This is an official starter Turborepo.
+This project is a full-stack clone of Apple's iCloud site. It implements various features including authentication, dashboard, file storage, and notes functionality.
 
-## Using this example
+Live URL: https://icloud.sangeet.xyz
 
-Run the following command:
+## Turborepo Setup
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
+This project uses Turborepo, a high-performance build system for JavaScript and TypeScript codebases. Here's what's included:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `web`: a [Next.js](https://nextjs.org/) app
+- `@repo/ui`: a stub React component library shared by the `web` application
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
@@ -26,48 +19,150 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
-
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
-### Build
+## Tech Stack
 
-To build all apps and packages, run the following command:
+- NextJS 14
+- TailwindCSS
+- Drizzle ORM
+- Next Auth
+- tRPC
+- ShadCN
+- Uploadthing
+- Supabase Postgres
+- [Statera](https://statera.sangeet.xyz)
+- Hanko
+- Framer Motion
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Steps
+
+1. Clone the repository:
+
+   ```
+   git clone [your-repo-url]
+   ```
+
+2. Install dependencies:
+
+   ```
+   npm install --workspace=web
+   ```
+
+3. Set up environment variables:
+
+   - Copy the `.env.example` file to `.env`
+   - Fill in the necessary values in the `.env` file
+
+4. Set up the database:
+
+   ```
+   npm run db:generate
+   npm run db:migrate
+   npm run db:push
+   ```
+
+5. Start the development server:
+   ```
+   npm run dev
+   ```
+
+Note: We're using `@t3-oss/env-nextjs` package for type-safe environment variables in development mode.
+
+## Available Scripts
+
+- `npm run dev`: Start the development server (with Turbo)
+- `npm run build`: Build the project
+- `npm run start`: Start the production server
+- `npm run lint`: Run linting
+- `npm run db:generate`: Generate Drizzle migrations
+- `npm run db:migrate`: Run Drizzle migrations
+- `npm run db:push`: Push Drizzle schema changes
+- `npm run db:studio`: Open Drizzle studio
+
+## Database Schema
+
+The project uses Drizzle ORM with the following main tables:
+
+1. `users`: Stores user information (id, name, email, etc.)
+2. `accounts`: Manages authentication accounts
+3. `sessions`: Handles user sessions
+4. `verificationTokens`: Stores tokens for email verification
+5. `notes`: Manages user notes
+6. `drives`: Stores information about user's drive files
+7. `photos`: Manages user's photo information
+
+Each table includes relationships and indexes for efficient querying. For full schema details, please refer to the `schema.ts` file in the project.
+
+## API Documentation
+
+The documentation for the Fetch Users API is available on the `/docs` route.
+
+### Fetching Users
+
+You can fetch user details via their names and email as requested. The OpenAPI endpoint is implemented using tRPC-openapi with x-api-key authentication.
+
+Example:
 
 ```
-cd my-turborepo
-pnpm build
+GET https://localhost:3000/api/users?name=axit
 ```
 
-### Develop
+Note: For demo purposes, you can use the API key: "iLoveHuddle"
 
-To develop all apps and packages, run the following command:
+## Implemented Features
 
-```
-cd my-turborepo
-pnpm dev
-```
+1. **Repo Setup**: Using Turborepo for a monorepo setup.
 
-### Remote Caching
+2. **Authentication**:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+   - Passwordless sign-in using passkeys
+   - Secure user information storage in the database
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+3. **Dashboard**:
 
-```
-cd my-turborepo
-npx turbo login
-```
+   - Responsive design similar to iCloud
+   - User profile section
+   - Photos/Images section
+   - Drive (document storage) section
+   - Notes section
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+4. **Backend**:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+   - Next.js project (app dir) with TypeScript
+   - tRPC integration for API routes
+   - OpenAPI endpoint using tRPC-openapi with x-api-key auth
 
-```
-npx turbo link
-```
+5. **Frontend**:
+
+   - Responsive UI mirroring iCloud layout
+   - Components for user profile, image gallery, document list, and notes interface
+
+6. **File Storage**:
+
+   - File upload functionality for images and documents
+   - File metadata storage in the database
+   - Integration with Uploadthing for storage
+
+7. **Notes Feature**:
+
+   - Create, edit, and view notes
+   - Notes stored in the database, associated with users
+   - Display of notes with titles and timestamps on the dashboard
+
+8. **Integration**:
+   - tRPC connection between frontend and backend API
+   - Proper error handling and loading states
+   - Type safety across the entire application
 
 ## Useful Links
 
