@@ -6,8 +6,9 @@ import { handleComingSoon } from "@/lib/utils";
 import { CgMenuGridO } from "react-icons/cg";
 import AccountButton from "../buttons/account-button";
 import Link from "next/link";
+import { memo } from "react";
 
-const Navbar = () => {
+const Navbar = memo(() => {
   return (
     <div className="w-full sticky top-0 z-10 text-white backdrop-blur-lg bg-opacity-20 justify-between flex items-center h-11 bg-zinc-900 px-3">
       <Link href={"/"}>
@@ -29,6 +30,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Navbar;

@@ -4,8 +4,9 @@ import { cn, getFallbackUserImage } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-const AccountCard = () => {
+const AccountCard = memo(() => {
   const { data, status } = useSession();
   if (status === "unauthenticated" || !data) return;
 
@@ -50,6 +51,6 @@ const AccountCard = () => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default AccountCard;

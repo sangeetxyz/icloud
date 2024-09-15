@@ -13,8 +13,9 @@ import { Skeleton } from "../ui/skeleton";
 import { MdOutlineInsertPhoto } from "react-icons/md";
 import { motion } from "framer-motion";
 import useWindowSize from "@/hooks/useWindowSize";
+import { memo } from "react";
 
-const PhotosCard = () => {
+const PhotosCard = memo(() => {
   const MIN_WIDTH = 1024;
   const { width } = useWindowSize();
   const [, setIsOpen] = useCreatePhotos();
@@ -98,6 +99,6 @@ const PhotosCard = () => {
       <CreatePhotos refetch={refetch} />
     </motion.div>
   );
-};
+});
 
 export default PhotosCard;

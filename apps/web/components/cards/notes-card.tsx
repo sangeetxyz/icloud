@@ -13,8 +13,9 @@ import { api } from "@/trpc/react";
 import { Skeleton } from "../ui/skeleton";
 import { HiMiniPlusCircle } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-const NotesCard = () => {
+const NotesCard = memo(() => {
   const [, setIsOpen] = useNoteState();
   const { data, isLoading, refetch } = api.notes.getNotesByUser.useQuery();
 
@@ -112,6 +113,6 @@ const NotesCard = () => {
       <CreateOrUpdateNote refetch={refetch} />
     </motion.div>
   );
-};
+});
 
 export default NotesCard;

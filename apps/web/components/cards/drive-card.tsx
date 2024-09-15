@@ -13,8 +13,9 @@ import { Skeleton } from "../ui/skeleton";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 import useWindowSize from "@/hooks/useWindowSize";
+import { memo } from "react";
 
-const DriveCard = () => {
+const DriveCard = memo(() => {
   const MIN_WIDTH = 1024;
   const { width } = useWindowSize();
   const [, setIsOpen] = useCreateDrive();
@@ -98,6 +99,6 @@ const DriveCard = () => {
       <CreateDrive refetch={refetch} />
     </motion.div>
   );
-};
+});
 
 export default DriveCard;
