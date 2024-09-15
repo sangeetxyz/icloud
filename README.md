@@ -41,8 +41,8 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Prerequisites
 
-- Node.js
-- npm
+- NodeJS (v18)
+- npm (v9)
 
 ### Steps
 
