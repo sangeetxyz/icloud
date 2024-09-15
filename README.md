@@ -107,6 +107,8 @@ Each table includes relationships and indexes for efficient querying. For full s
 
 The documentation for the Fetch Users API is available on the `/docs` route.
 
+Live docs URL: https://icloud.sangeet.xyz/docs
+
 ### Fetching Users
 
 You can fetch user details via their names and email as requested. The OpenAPI endpoint is implemented using tRPC-openapi with x-api-key authentication.
@@ -114,10 +116,10 @@ You can fetch user details via their names and email as requested. The OpenAPI e
 Example:
 
 ```
-GET https://localhost:3000/api/users?name=axit
+GET https://localhost:3000/api/users?name=Sangeet%20Banerjee
 ```
 
-Note: For demo purposes, you can use the API key: "iLoveHuddle"
+Note: For demo purposes, you can use the API key: "iLoveHuddle" and name: "Sangeet Banerjee"
 
 ## Implemented Features
 
@@ -140,7 +142,7 @@ Note: For demo purposes, you can use the API key: "iLoveHuddle"
 
    - Next.js project (app dir) with TypeScript
    - tRPC integration for API routes
-   - OpenAPI endpoint using tRPC-openapi with x-api-key auth
+   - OpenAPI endpoint using openapi with x-api-key auth
 
 5. **Frontend**:
 
